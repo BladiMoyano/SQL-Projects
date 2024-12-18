@@ -118,8 +118,8 @@ AND t2.industry IS NOT NULL;
 
 -- 4. REMOVE UNNECESSARY COLUMNS
 
-ALTER TABLE layoffs_edit_2
+ALTER TABLE layoffs_staging_2
 DROP COLUMN row_num;
 
 SELECT *
-FROM layoffs_edit_2;
+FROM layoffs_staging_2;
