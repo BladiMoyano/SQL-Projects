@@ -42,9 +42,66 @@ FROM t2
 WHERE rank_countries <= 5;
 ```
 
+## 10 American cities with the most layovers ##
 
+```sql
+select location, sum(total_laid_off)
+from layoffs_staging_2
+where country = 'United States'
+group by location
+order by sum(total_laid_off) DESC
+limit 10;
+```
 
+## Relationship between funds raised and percentage of laid off ##
 
+```sql
+SELECT AVG(percentage_laid_off), AVG(funds_raised_millions) AS avg_funds_raised_millions
+FROM layoffs_staging_2
+WHERE total_laid_off IS NOT NULL 
+  AND percentage_laid_off IS NOT NULL 
+  AND date IS NOT NULL 
+  AND funds_raised_millions IS NOT NULL
+  AND percentage_laid_off > 0
+  AND percentage_laid_off < 0.5;
+  -- AVG funds for companies layoff 0-50% of their personal = 873
 
+SELECT AVG(percentage_laid_off), AVG(funds_raised_millions) AS avg_funds_raised_millions
+FROM layoffs_staging_2
+WHERE total_laid_off IS NOT NULL 
+  AND percentage_laid_off IS NOT NULL 
+  AND date IS NOT NULL 
+  AND funds_raised_millions IS NOT NULL
+  AND percentage_laid_off > 0.5
+  AND percentage_laid_off < 0.99;
+  -- AVG funds for companies layoff between 50-99% of their personal = 260
+  
+  SELECT percentage_laid_off, AVG(funds_raised_millions) AS avg_funds_raised_millions
+FROM layoffs_staging_2
+WHERE total_laid_off IS NOT NULL 
+  AND percentage_laid_off IS NOT NULL 
+  AND date IS NOT NULL 
+  AND funds_raised_millions IS NOT NULL
+  AND percentage_laid_off = 1;
+  -- AVG funds for companies layoff 100% of their personal = 190
+```
 
+## Companies that Raised Significant Funds but Still Had Layoffs##
 
+```sql
+SELECT company, sum(funds_raised_millions) as funds, sum(total_laid_off) as total_layoff, CAST(AVG(percentage_laid_off) AS DECIMAL (10,2)) as percentage_layoff
+FROM layoffs_staging_2
+group by company
+order by funds DESC
+limit 10;
+```
+
+## Monthly trend of layoffs ##
+
+```sql
+SELECT sum(total_laid_off), MONTH(`date`) as layoff_month, YEAR(`date`) as layoff_year
+FROM layoffs_staging_2
+where `date` is not null
+group by layoff_month, layoff_year
+order by layoff_year, layoff_month;
+```
