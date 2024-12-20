@@ -9,6 +9,8 @@ ORDER BY top_layoffs desc
 LIMIT 5;
 ```
 
+![Querry-1](assets/images/querry-1.PNG)
+
 ### Top 5 companies with the most layoff per year ###
 
 ```sql 
@@ -26,6 +28,9 @@ FROM t2
 WHERE rank_layoff <= 5;
 ```
 
+![Querry-2](assets/images/querry-2.PNG)
+
+
 ## Monthly trend of layoffs ##
 
 ```sql
@@ -35,6 +40,9 @@ where `date` is not null
 group by layoff_month, layoff_year
 order by layoff_year, layoff_month;
 ```
+
+![Querry-3](assets/images/querry-3.PNG)
+
 
 ## Location Analysis ##
 ### Most layoff by country outside of the United States ###
@@ -54,6 +62,8 @@ FROM t2
 WHERE rank_countries <= 5;
 ```
 
+![Querry-4](assets/images/querry-4.PNG)
+
 ### 10 American cities with the most layovers ###
 
 ```sql
@@ -64,6 +74,8 @@ group by location
 order by sum(total_laid_off) DESC
 limit 10;
 ```
+
+![Querry-5](assets/images/querry-5.PNG)
 
 ## Funding Analysis ##
 ### Relationship between funds raised and percentage of laid off ###
