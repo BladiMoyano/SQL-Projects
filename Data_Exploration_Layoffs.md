@@ -1,4 +1,5 @@
-## Top 5 industries with the most layoffs ##
+##  Layoffs Overview ##
+### Top 5 industries with the most layoffs ###
 ```sql
 SELECT industry, sum(total_laid_off) as top_layoffs
 FROM layoffs_staging_2
@@ -8,7 +9,7 @@ ORDER BY top_layoffs desc
 LIMIT 5;
 ```
 
-## Top 5 companies with the most layoff per year ##
+### Top 5 companies with the most layoff per year ###
 
 ```sql 
 WITH t1 as (
@@ -25,7 +26,18 @@ FROM t2
 WHERE rank_layoff <= 5;
 ```
 
-## Most layoff by country outside of the United States ##
+## Monthly trend of layoffs ##
+
+```sql
+SELECT sum(total_laid_off), MONTH(`date`) as layoff_month, YEAR(`date`) as layoff_year
+FROM layoffs_staging_2
+where `date` is not null
+group by layoff_month, layoff_year
+order by layoff_year, layoff_month;
+```
+
+## Location Analysis ##
+### Most layoff by country outside of the United States ###
 
 ```sql
 WITH t1 as(
@@ -42,7 +54,7 @@ FROM t2
 WHERE rank_countries <= 5;
 ```
 
-## 10 American cities with the most layovers ##
+### 10 American cities with the most layovers ###
 
 ```sql
 select location, sum(total_laid_off)
@@ -53,7 +65,8 @@ order by sum(total_laid_off) DESC
 limit 10;
 ```
 
-## Relationship between funds raised and percentage of laid off ##
+## Funding Analysis ##
+### Relationship between funds raised and percentage of laid off ###
 
 ```sql
 SELECT AVG(percentage_laid_off), AVG(funds_raised_millions) AS avg_funds_raised_millions
@@ -86,7 +99,7 @@ WHERE total_laid_off IS NOT NULL
   -- AVG funds for companies layoff 100% of their personal = 190
 ```
 
-## Companies that Raised Significant Funds but Still Had Layoffs##
+### Companies that Raised Significant Funds but Still Had Layoffs###
 
 ```sql
 SELECT company, sum(funds_raised_millions) as funds, sum(total_laid_off) as total_layoff, CAST(AVG(percentage_laid_off) AS DECIMAL (10,2)) as percentage_layoff
@@ -95,13 +108,12 @@ group by company
 order by funds DESC
 limit 10;
 ```
-
-## Monthly trend of layoffs ##
+### Companies with High Funding and High Layoffs ###
 
 ```sql
-SELECT sum(total_laid_off), MONTH(`date`) as layoff_month, YEAR(`date`) as layoff_year
+SELECT company, funds_raised_millions, total_laid_off
 FROM layoffs_staging_2
-where `date` is not null
-group by layoff_month, layoff_year
-order by layoff_year, layoff_month;
+WHERE funds_raised_millions > (SELECT AVG(funds_raised_millions) FROM layoffs_staging_2)
+  AND total_laid_off > (SELECT AVG(total_laid_off) FROM layoffs_staging_2)
+ORDER BY total_laid_off DESC;
 ```
