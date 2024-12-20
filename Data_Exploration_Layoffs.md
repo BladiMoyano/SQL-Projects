@@ -75,13 +75,14 @@ order by sum(total_laid_off) DESC
 limit 10;
 ```
 
-![Querry-5](assets/images/querry-5.PNG)
+![Querry-5](assets/images/querry-5.1.PNG)
 
 ## Funding Analysis ##
 ### Relationship between funds raised and percentage of laid off ###
+#### AVG funds for companies layoff 0-50% of their personal ####
 
 ```sql
-SELECT AVG(percentage_laid_off), AVG(funds_raised_millions) AS avg_funds_raised_millions
+SELECT AVG(funds_raised_millions) AS avg_funds_raised_millions
 FROM layoffs_staging_2
 WHERE total_laid_off IS NOT NULL 
   AND percentage_laid_off IS NOT NULL 
@@ -89,9 +90,12 @@ WHERE total_laid_off IS NOT NULL
   AND funds_raised_millions IS NOT NULL
   AND percentage_laid_off > 0
   AND percentage_laid_off < 0.5;
-  -- AVG funds for companies layoff 0-50% of their personal = 873
+ ```
+![Querry-4](assets/images/querry-6.PNG)
 
-SELECT AVG(percentage_laid_off), AVG(funds_raised_millions) AS avg_funds_raised_millions
+#### AVG funds for companies layoff 50-99% of their personal ####
+```sql
+SELECT AVG(funds_raised_millions) AS avg_funds_raised_millions
 FROM layoffs_staging_2
 WHERE total_laid_off IS NOT NULL 
   AND percentage_laid_off IS NOT NULL 
@@ -99,8 +103,12 @@ WHERE total_laid_off IS NOT NULL
   AND funds_raised_millions IS NOT NULL
   AND percentage_laid_off > 0.5
   AND percentage_laid_off < 0.99;
-  -- AVG funds for companies layoff between 50-99% of their personal = 260
-  
+```
+![Querry-4](assets/images/querry-7.PNG)
+
+#### AVG funds for companies layoff 100% of their personal (Total Closure) ####
+
+```sql  
   SELECT percentage_laid_off, AVG(funds_raised_millions) AS avg_funds_raised_millions
 FROM layoffs_staging_2
 WHERE total_laid_off IS NOT NULL 
@@ -108,10 +116,10 @@ WHERE total_laid_off IS NOT NULL
   AND date IS NOT NULL 
   AND funds_raised_millions IS NOT NULL
   AND percentage_laid_off = 1;
-  -- AVG funds for companies layoff 100% of their personal = 190
 ```
+![Querry-4](assets/images/querry-8.PNG)
 
-### Companies that Raised Significant Funds but Still Had Layoffs###
+### Companies that Raised Significant Funds but Still Had Layoffs ###
 
 ```sql
 SELECT company, sum(funds_raised_millions) as funds, sum(total_laid_off) as total_layoff, CAST(AVG(percentage_laid_off) AS DECIMAL (10,2)) as percentage_layoff
@@ -120,6 +128,9 @@ group by company
 order by funds DESC
 limit 10;
 ```
+
+![Querry-4](assets/images/querry-9.PNG)
+
 ### Companies with High Funding and High Layoffs ###
 
 ```sql
@@ -129,3 +140,4 @@ WHERE funds_raised_millions > (SELECT AVG(funds_raised_millions) FROM layoffs_st
   AND total_laid_off > (SELECT AVG(total_laid_off) FROM layoffs_staging_2)
 ORDER BY total_laid_off DESC;
 ```
+![Querry-4](assets/images/querry-10.PNG)
