@@ -3,7 +3,7 @@ Welcome to my SQL Projects repository! Here you will find examples of SQL-based 
 
 ## Projects
 ### Layoffs Dataset
-- [Data Cleaning](./Data_Cleaning_Layoffs.md)
+- [Data Cleaning](/assets/docs/Data_Cleaning_Layoffs.md)
 - [Data Exploration and Analysis](./Data_Exploration_Layoffs.md)
 ### 120 Years of Olympic History
 - [Data Cleaning](./Data_Cleaning_Layoffs.md)
