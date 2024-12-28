@@ -9,7 +9,7 @@ ORDER BY top_layoffs desc
 LIMIT 5;
 ```
 
-![Querry-1](assets/images/querry-1.PNG)
+![Querry-1](/assets/images/querry-1.PNG)
 
 ### Top 5 companies with the most layoff per year ###
 
@@ -28,7 +28,7 @@ FROM t2
 WHERE rank_layoff <= 5;
 ```
 
-![Querry-2](assets/images/querry-2.PNG)
+![Querry-2](/assets/images/querry-2.PNG)
 
 
 ## Monthly trend of layoffs ##
@@ -41,7 +41,7 @@ group by layoff_month, layoff_year
 order by layoff_year, layoff_month;
 ```
 
-![Querry-3](assets/images/querry-3.PNG)
+![Querry-3](/assets/images/querry-3.PNG)
 
 
 ## Location Analysis ##
@@ -62,7 +62,7 @@ FROM t2
 WHERE rank_countries <= 5;
 ```
 
-![Querry-4](assets/images/querry-4.PNG)
+![Querry-4](/assets/images/querry-4.PNG)
 
 ### 10 American cities with the most layovers ###
 
@@ -75,7 +75,7 @@ order by sum(total_laid_off) DESC
 limit 10;
 ```
 
-![Querry-5](assets/images/querry-5.1.PNG)
+![Querry-5](/assets/images/querry-5.1.PNG)
 
 ## Funding Analysis ##
 ### Relationship between funds raised and percentage of laid off ###
@@ -91,7 +91,7 @@ WHERE total_laid_off IS NOT NULL
   AND percentage_laid_off > 0
   AND percentage_laid_off < 0.5;
  ```
-![Querry-4](assets/images/querry-6.PNG)
+![Querry-4](/assets/images/querry-6.PNG)
 
 #### AVG funds for companies layoff 50-99% of their personal ####
 ```sql
@@ -104,7 +104,7 @@ WHERE total_laid_off IS NOT NULL
   AND percentage_laid_off > 0.5
   AND percentage_laid_off < 0.99;
 ```
-![Querry-4](assets/images/querry-7.PNG)
+![Querry-4](/assets/images/querry-7.PNG)
 
 #### AVG funds for companies layoff 100% of their personal (Total Closure) ####
 
@@ -117,7 +117,7 @@ WHERE total_laid_off IS NOT NULL
   AND funds_raised_millions IS NOT NULL
   AND percentage_laid_off = 1;
 ```
-![Querry-4](assets/images/querry-8.PNG)
+![Querry-4](/assets/images/querry-8.PNG)
 
 ### Companies that Raised Significant Funds but Still Had Layoffs ###
 
@@ -129,7 +129,7 @@ order by funds DESC
 limit 10;
 ```
 
-![Querry-4](assets/images/querry-9.PNG)
+![Querry-4](/assets/images/querry-9.PNG)
 
 ### Companies with High Funding and High Layoffs ###
 
@@ -140,4 +140,4 @@ WHERE funds_raised_millions > (SELECT AVG(funds_raised_millions) FROM layoffs_st
   AND total_laid_off > (SELECT AVG(total_laid_off) FROM layoffs_staging_2)
 ORDER BY total_laid_off DESC;
 ```
-![Querry-4](assets/images/querry-10.PNG)
+![Querry-4](/assets/images/querry-10.PNG)
