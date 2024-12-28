@@ -2,7 +2,7 @@
 Welcome to my SQL Projects repository! Here you will find examples of SQL-based solutions and data analysis.
 
 ## Projects
-- [Data Cleaning]((./Data_Cleaning_Layoffs.md): A project analyzing sales trends.
+- [Data Cleaning](./Data_Cleaning_Layoffs.md): A project analyzing sales trends.
 - [Data Exploration and Analysis](./Data_Exploration_Layoffs.md): A database schema for managing employee data.
 
 ## About
