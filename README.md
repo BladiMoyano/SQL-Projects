@@ -9,3 +9,4 @@ Welcome to my SQL Projects repository! Here you will find examples of SQL-based 
 This site showcases my experience with SQL queries, schemas, and optimization techniques.
 
 © 2024 SQL Projects
+.
