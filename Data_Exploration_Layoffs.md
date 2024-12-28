@@ -1,4 +1,4 @@
-##  Layoffs Overview ##
+##  Layoffs Overview
 ### Top 5 industries with the most layoffs ###
 ```sql
 SELECT industry, sum(total_laid_off) as top_layoffs
