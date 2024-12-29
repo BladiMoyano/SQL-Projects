@@ -154,7 +154,8 @@ ORDER BY top_layoffs desc
 LIMIT 5;
 ```
 
-![Querry-1](assets/images/querry-1.PNG)
+![Querry-1](https://bladimoyano.github.io/SQL-Projects.github.io/assets/images/querry-1.PNG)
+
 ### Top 5 Companies with the Most Layoffs Per Year ###
 
 ```sql 
